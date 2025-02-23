@@ -80,7 +80,7 @@ export function GameScreen({
             {selectedCategory.questions.length}
           </div>
 
-          {currentQuestion.imageUrl && (
+          {currentQuestion?.imageUrl && (
             <div className="relative mb-6 group">
               <Image
                 src={currentQuestion.imageUrl}
@@ -100,11 +100,11 @@ export function GameScreen({
           )}
 
           <h2 className="text-2xl font-bold text-white mb-8">
-            {currentQuestion.text}
+            {currentQuestion?.text}
           </h2>
 
           <div className="space-y-4">
-            {currentQuestion.options.map((option) => {
+            {currentQuestion?.options.map((option) => {
               const isSelected = state.selectedAnswer === option;
               const isCorrect = option === currentQuestion.correctAnswer;
               const showCorrectHighlight = state.selectedAnswer && isCorrect;
