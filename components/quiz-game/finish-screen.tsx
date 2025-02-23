@@ -10,7 +10,7 @@ export function FinishScreen({ state, onReset }: FinishScreenProps) {
   const totalQuestions = state.selectedCategory?.questions.length || 0;
 
   return (
-    <div className="w-full max-w-md bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
+    <div className="w-full h-screen md:h-auto flex justify-center items-center md:max-w-md bg-indigo-950 md:rounded-3xl shadow-2xl overflow-hidden">
       <div className="p-8 text-center">
         <Trophy className="w-16 h-16 text-yellow-500 mx-auto mb-6" />
         <h2 className="text-3xl font-bold text-white mb-4">Game Over!</h2>

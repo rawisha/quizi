@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Heart, Timer, RotateCcw, ZoomIn, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { QuizState } from './types';
-import Image from 'next/image';
+import { useState } from "react";
+import { Heart, Timer, RotateCcw, ZoomIn, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { QuizState } from "./types";
+import Image from "next/image";
 
 interface GameScreenProps {
   state: QuizState;
@@ -11,16 +11,26 @@ interface GameScreenProps {
   onContinue: () => void;
 }
 
-export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameScreenProps) {
+export function GameScreen({
+  state,
+  onSelectAnswer,
+  onReset,
+  onContinue,
+}: GameScreenProps) {
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const { selectedCategory } = state;
-  
+
   // Early return if no category is selected
   if (!selectedCategory) {
     return (
-      <div className="w-full max-w-md bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
+      <div className="w-full h-screen md:h-auto flex justify-center items-center md:max-w-md bg-indigo-950 md:rounded-3xl p-10 shadow-2xl overflow-hidden">
         <div className="p-8 text-center">
-          <p className="text-white">Laddar...</p>
+          <p className="text-white">
+            Laddar
+            <span className="animate-dot1">.</span>
+            <span className="animate-dot2">.</span>
+            <span className="animate-dot3">.</span>
+          </p>
         </div>
       </div>
     );
@@ -28,18 +38,23 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
 
   // Get current question safely
   const currentQuestion = selectedCategory.questions[state.currentQuestion];
-  
+
   return (
     <>
-      <div className="w-full max-w-md bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
-        <div className="p-8">
+      <div className="w-full md:max-w-md h-screen md:h-auto bg-indigo-950 md:rounded-3xl  shadow-2xl overflow-hidden">
+        <div className="px-8 py-4 h-screen md:h-auto">
           <div className="flex justify-between items-center mb-8">
-            {state.difficulty === 'hard' && (
+            {state.difficulty === "hard" && (
               <div className="flex items-center gap-2 text-gray-300">
                 <Timer size={20} />
-                <span className={cn(
-                  state.timeLeft <= 10 && "text-red-500 animate-pulse font-bold"
-                )}>{state.timeLeft}s</span>
+                <span
+                  className={cn(
+                    state.timeLeft <= 10 &&
+                      "text-red-500 animate-pulse font-bold"
+                  )}
+                >
+                  {state.timeLeft}s
+                </span>
               </div>
             )}
             <div className="flex items-center gap-4 ml-auto">
@@ -61,17 +76,20 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
           </div>
 
           <div className="text-gray-400 mb-2">
-            Fråga {state.currentQuestion + 1} av {selectedCategory.questions.length}
+            Fråga {state.currentQuestion + 1} av{" "}
+            {selectedCategory.questions.length}
           </div>
 
           {currentQuestion.imageUrl && (
             <div className="relative mb-6 group">
-              <Image src={currentQuestion.imageUrl}
+              <Image
+                src={currentQuestion.imageUrl}
                 alt="Question"
                 width={500}
                 height={500}
-                className="w-full h-48 object-cover rounded-lg cursor-zoom-in"
-                onClick={() => setIsImageModalOpen(true)} />
+                className="w-full h-56 object-cover rounded-lg cursor-zoom-in"
+                onClick={() => setIsImageModalOpen(true)}
+              />
               <button
                 onClick={() => setIsImageModalOpen(true)}
                 className="absolute bottom-2 right-2 p-2 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
@@ -102,17 +120,22 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
                     "hover:bg-indigo-900/50",
                     "relative overflow-hidden",
                     {
-                      "bg-green-500/20 border-2 border-green-500": showCorrectHighlight,
-                      "bg-red-500/20 border-2 border-red-500": showIncorrectHighlight,
-                      "bg-white/10 border-2 border-transparent": !showCorrectHighlight && !showIncorrectHighlight,
-                      "cursor-default": state.selectedAnswer !== null
+                      "bg-green-500/20 border-2 border-green-500":
+                        showCorrectHighlight,
+                      "bg-red-500/20 border-2 border-red-500":
+                        showIncorrectHighlight,
+                      "bg-white/10 border-2 border-transparent":
+                        !showCorrectHighlight && !showIncorrectHighlight,
+                      "cursor-default": state.selectedAnswer !== null,
                     }
                   )}
                 >
                   <span className="relative z-10 text-white font-medium">
                     {option}
                     {showCorrectHighlight && (
-                      <span className="ml-2 text-green-400">(Korrekt svar)</span>
+                      <span className="ml-2 text-green-400">
+                        (Korrekt svar)
+                      </span>
                     )}
                     {showIncorrectHighlight && (
                       <span className="ml-2 text-red-400">(Ditt svar)</span>
@@ -123,8 +146,8 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
             })}
           </div>
 
-          {(state.selectedAnswer || state.selectedAnswer === 'TIME_UP') && (
-            <div className="flex gap-4 mt-6">
+          {(state.selectedAnswer || state.selectedAnswer === "TIME_UP") && (
+            <div className="flex gap-4  mt-5">
               <button
                 onClick={onReset}
                 className="flex items-center justify-center gap-2 w-1/2 p-4 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
@@ -153,11 +176,13 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
             >
               <X size={24} />
             </button>
-            <Image src={currentQuestion.imageUrl}
+            <Image
+              src={currentQuestion.imageUrl}
               alt="Question"
               width={1500}
               height={1500}
-              className="w-full h-auto max-h-[80vh] object-contain rounded-lg" />
+              className="w-full h-auto max-h-[80vh] object-contain rounded-lg"
+            />
           </div>
         </div>
       )}

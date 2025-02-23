@@ -7,7 +7,7 @@ interface StartScreenProps {
 
 export function StartScreen({ categories, onSelectCategory }: StartScreenProps) {
   return (
-    <div className="w-full max-w-4xl bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
+    <div className="w-full h-screen md:h-auto  md:max-w-4xl bg-indigo-950 md:rounded-3xl shadow-2xl overflow-hidden overflow-y-auto">
       <div className="p-8">
         <h1 className="text-4xl font-bold text-white text-center mb-8">Quiz<span className='text-red-500'>i</span></h1>
         <p className="text-gray-300 text-center mb-12">Välj en kategori för att börja spela</p>

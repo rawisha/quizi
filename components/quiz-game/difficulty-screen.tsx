@@ -11,7 +11,7 @@ export function DifficultyScreen({
   onReset,
 }: DifficultyScreenProps) {
   return (
-    <div className="w-full max-w-md bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
+    <div className="w-full md:h-auto h-screen flex justify-center items-center md:max-w-md bg-indigo-950 rounded-3xl shadow-2xl overflow-hidden">
       <div className="p-8">
         <h2 className="text-3xl font-bold text-white text-center mb-4">
         Välj Svårighetsgrad
