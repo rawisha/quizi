@@ -41,8 +41,8 @@ export function GameScreen({
 
   return (
     <>
-      <div className="w-full md:max-w-md h-screen md:h-auto bg-indigo-950 md:rounded-3xl  shadow-2xl overflow-hidden">
-        <div className="px-8 py-4 h-screen md:h-auto">
+      <div className="w-full md:max-w-md h-screen md:h-auto bg-indigo-950 md:rounded-3xl  shadow-2xl flex flex-col ">
+        <div className="px-8 py-4 h-screen flex-1 overflow-y-auto md:h-auto">
           <div className="flex justify-between items-center mb-8">
             {state.difficulty === "hard" && (
               <div className="flex items-center gap-2 text-gray-300">
@@ -103,7 +103,7 @@ export function GameScreen({
             {currentQuestion?.text}
           </h2>
 
-          <div className="space-y-4">
+          <div className="space-y-4 overflow-y-auto">
             {currentQuestion?.options.map((option) => {
               const isSelected = state.selectedAnswer === option;
               const isCorrect = option === currentQuestion.correctAnswer;
