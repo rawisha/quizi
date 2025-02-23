@@ -36,7 +36,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
           name: 'text',
           title: 'Question Text',
           type: 'string',
-          validation: (Rule) => Rule.required(),
+          validation: (Rule) => Rule.optional(),
+        },
+        {
+          name: 'image',
+          title: 'Question Image',
+          type: 'image',
+          options: { hotspot: true },
+          validation: (Rule) => Rule.optional(),
         },
         {
           name: 'options',

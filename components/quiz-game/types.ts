@@ -3,6 +3,7 @@ export interface Question {
     text: string;
     options: string[];
     correctAnswer: string;
+    imageUrl?: string;
   }
   
   export interface Category {

@@ -17,7 +17,8 @@ export async function getCategories() {
       _id,
       text,
       options,
-      correctAnswer
+      correctAnswer,
+      "imageUrl": image.asset->url,
     }
   }`);
 }
