@@ -147,7 +147,7 @@ export function GameScreen({
           </div>
 
           {(state.selectedAnswer || state.selectedAnswer === "TIME_UP") && (
-            <div className="flex gap-4  mt-5">
+            <div className="flex gap-4  mt-2">
               <button
                 onClick={onReset}
                 className="flex items-center justify-center gap-2 w-1/2 p-4 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-medium transition-colors"
