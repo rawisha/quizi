@@ -46,8 +46,8 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
                   key={i}
                   size={20}
                   className={cn(
-                    "transition-all duration-500 transform",
-                    i < state.lives ? "text-pink-500 scale-110" : "text-gray-600"
+                    "transition-colors duration-300",
+                    i < state.lives ? "text-pink-500" : "text-gray-600"
                   )}
                   fill={i < state.lives ? "currentColor" : "none"}
                 />
@@ -65,30 +65,41 @@ export function GameScreen({ state, onSelectAnswer, onReset, onContinue }: GameS
         </h2>
 
         <div className="space-y-4">
-          {currentQuestion.options.map((option) => (
-            <button
-              key={option}
-              onClick={() => onSelectAnswer(option)}
-              disabled={state.selectedAnswer !== null}
-              className={cn(
-                "w-full p-4 rounded-lg text-center transition-all duration-300",
-                "hover:bg-indigo-900/50",
-                state.selectedAnswer === option
-                  ? option === currentQuestion.correctAnswer
-                    ? "bg-green-500/20 border-2 border-green-500"
-                    : "bg-red-500/20 border-2 border-red-500"
-                  : state.selectedAnswer === 'TIME_UP'
-                  ? option === currentQuestion.correctAnswer
-                    ? "bg-yellow-500/20 border-2 border-yellow-500"
-                    : "bg-white/10 border-2 border-transparent"
-                  : "bg-white/10 border-2 border-transparent",
-                "text-white font-medium",
-                state.selectedAnswer !== null && "cursor-default"
-              )}
-            >
-              {option}
-            </button>
-          ))}
+          {currentQuestion.options.map((option) => {
+            const isSelected = state.selectedAnswer === option;
+            const isCorrect = option === currentQuestion.correctAnswer;
+            const showCorrectHighlight = state.selectedAnswer && isCorrect;
+            const showIncorrectHighlight = isSelected && !isCorrect;
+
+            return (
+              <button
+                key={option}
+                onClick={() => onSelectAnswer(option)}
+                disabled={state.selectedAnswer !== null}
+                className={cn(
+                  "w-full p-4 rounded-lg text-center transition-all duration-300",
+                  "hover:bg-indigo-900/50",
+                  "relative overflow-hidden",
+                  {
+                    "bg-green-500/20 border-2 border-green-500": showCorrectHighlight,
+                    "bg-red-500/20 border-2 border-red-500": showIncorrectHighlight,
+                    "bg-white/10 border-2 border-transparent": !showCorrectHighlight && !showIncorrectHighlight,
+                    "cursor-default": state.selectedAnswer !== null
+                  }
+                )}
+              >
+                <span className="relative z-10 text-white font-medium">
+                  {option}
+                  {showCorrectHighlight && (
+                    <span className="ml-2 text-green-400">(Korrekt svar)</span>
+                  )}
+                  {showIncorrectHighlight && (
+                    <span className="ml-2 text-red-400">(Ditt svar)</span>
+                  )}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         {(state.selectedAnswer || state.selectedAnswer === 'TIME_UP') && (
